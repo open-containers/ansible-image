@@ -1,8 +1,9 @@
 name: build-push-ansible
 
 on:
+  # The schedule will trigger in the UTC timezone
   schedule:
-    - cron: "30 13 * * *"
+    - cron: "0 14 * * *"
 
 jobs:
   build-push-ansible:
