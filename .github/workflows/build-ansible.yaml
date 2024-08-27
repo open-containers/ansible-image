@@ -62,10 +62,8 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ansible-sbom.spdx
-          output-file: /tmp/ansible-sbom.spdx
-          upload-artifact: true
-          upload-release-assets: true
+          artifact-name: ansible-sbom.spdx.json
+          output-file: ./ansible-sbom.spdx.json
 
       - name: Push SBOM as OCI artifact to GHCR
         run: |
