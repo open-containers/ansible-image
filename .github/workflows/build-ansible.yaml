@@ -73,7 +73,7 @@ jobs:
 
       - name: Push SBOM as OCI artifact to GHCR
         run: |
-          genval artifact push --reqinput ${{ env.SBOM_DIR }}/ansible-sbom.spdx.json \
+          genval artifact push --reqinput ${{ env.SBOM_DIR }} \
           --dest oci://${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ env.TAG }}.sbom \
           --annotations="authors=intelops inc."
 
