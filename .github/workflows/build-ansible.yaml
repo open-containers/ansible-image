@@ -58,15 +58,18 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
 
-      - name: generate SBOM for the image
-        uses: anchore/sbom-action@v0
+      - name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@v1
         with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ansible-sbom.spdx.json
+          image: ${{env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          format: spdx
+          output: ./ansible-sbom.spdx.json
 
       - name: Push SBOM as OCI artifact to GHCR
         run: |
-          genval artifact push --reqinput /tmp/**/ansible-sbom-spdx \
+          genval artifact push --reqinput ./ansible-sbom.spdx.json \
           --dest oci://${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ env.TAG }}.sbom \
           --annotations="authors=intelops inc."
 
