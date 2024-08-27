@@ -50,18 +50,18 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
 
-      - name: Reformat Docker Digest
-        id: format-digest
-        run: echo "${{ steps.docker_build.outputs.digest }}" | sed 's/:/-/'
-        shell: bash
+      - name: Generate SBOM
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b $HOME/.local/bin
+          $HOME/.local/bin/syft ${{ secrets.DOCKER_USERNAME }}/my-image:latest -o cyclonedx-json > sbom.json
 
-      - name: generate SBOM for the image
-        uses: anchore/sbom-action@v0
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ${{ steps.format-digest.outputs.result}}-sbom.spdx
-          upload-artifact: true
-          upload-release-assets: true
+      - name: Push SBOM to Registry
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          cat sbom.json | docker exec -i $(docker run -d --rm --entrypoint sh dockerhub/pushsbom) tee /tmp/sbom.json
+          docker cp /tmp/sbom.json $(docker ps -lq):/sbom.json
+          docker commit $(docker ps -lq) ${{ secrets.DOCKER_USERNAME }}/my-image:sbom-latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-image:sbom-latest
   
       - name: sign container image
         run: |
