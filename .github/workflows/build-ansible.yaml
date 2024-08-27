@@ -13,7 +13,8 @@ jobs:
       TAG: "v1.0.0"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      actions: read
+      contents: write
       packages: write
       id-token: write
     steps:
@@ -45,6 +46,12 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+
+      - name: generate SBOM for the image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+          artifact-name: sbom.spdx
 
       - name: sign container image
         run: |
