@@ -2,7 +2,7 @@ name: build-push-ansible
 
 on:
   schedule:
-    - cron: '25 18 * * *'
+    - cron: "35 18 * * *"
 
 jobs:
   build-push-ansible:
@@ -10,7 +10,7 @@ jobs:
       REGISTRY: ghcr.io
       IMAGE: santoshkal/ansible
       TAG: "v1.0.0"
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
