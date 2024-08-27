@@ -51,7 +51,7 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ${{ env.IMAGE }}-${{ env.TAG }}-sbom.spdx
+          artifact-name: ${{ steps.docker_build.outputs.digest}}-sbom.spdx
           upload-artifact: true
           upload-release-assets: true
   
