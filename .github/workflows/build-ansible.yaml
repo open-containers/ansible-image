@@ -62,11 +62,11 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: /tmp/ansible-sbom.spdx.json
+          artifact-name: ansible-sbom.spdx.json
 
       - name: Push SBOM as OCI artifact to GHCR
         run: |
-          genval artifact push --reqinput /tmp/ansible-sbom-spdx \
+          genval artifact push --reqinput /tmp/**/ansible-sbom-spdx \
           --dest oci://${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ env.TAG }}.sbom \
           --annotations="authors=intelops inc."
 
