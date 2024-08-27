@@ -1,0 +1,13 @@
+name: build-push-ansible
+
+on:
+  schedule:
+    cron: "0,6 * * *"
+
+
+jobs:
+  build-push-ansible
+    runs-on: ubuntu:latest
+    steps:
+    - name: build ansible image
+      uses: 
