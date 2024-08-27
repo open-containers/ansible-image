@@ -62,6 +62,7 @@ jobs:
         id: docker-scout
         uses: docker/scout-action@v1
         with:
+          command: sbom
           image: ${{env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: spdx
