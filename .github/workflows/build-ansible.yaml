@@ -2,8 +2,11 @@ name: build-push-ansible
 
 on:
   # The schedule will trigger in the UTC timezone
-  schedule:
-    - cron: "0 19 * * *"
+  #schedule:
+    #- cron: "0 19 * * *"
+   push:
+     branches:
+       - main
 
 jobs:
   build-push-ansible:
@@ -47,11 +50,16 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
 
+      - name: Reformat Docker Digest
+        id: format-digest
+        run: echo "${{ steps.docker_build.outputs.digest }}" | sed 's/:/-/'
+        shell: bash
+
       - name: generate SBOM for the image
         uses: anchore/sbom-action@v0
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ${{ steps.docker_build.outputs.digest}}-sbom.spdx
+          artifact-name: ${{ steps.format-digest.outputs.result}}-sbom.spdx
           upload-artifact: true
           upload-release-assets: true
   
