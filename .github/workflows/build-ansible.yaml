@@ -25,6 +25,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
 
+      - name: setup Go
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5
+        with:
+          go-version: "1.22"
+
       - name: Install Genval
         run: go install github.com/intelops/genval@main
 
@@ -58,12 +63,13 @@ jobs:
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
           artifact-name: ansible-sbom.spdx
+          output-file: /tmp/ansible-sbom.spdx
           upload-artifact: true
           upload-release-assets: true
 
       - name: Push SBOM as OCI artifact to GHCR
         run: |
-          genval artifact push --reqinput /tmp/**/ansible-sbom-spdx \
+          genval artifact push --reqinput /tmp/ansible-sbom-spdx \
           --dest oci://${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ env.TAG }}.sbom \
           --annotations="authors=intelops inc."
 
