@@ -3,7 +3,7 @@ name: build-push-ansible
 on:
   # The schedule will trigger in the UTC timezone
   schedule:
-    - cron: "0 18 * * *"
+    - cron: "15 18 * * *"
 
 jobs:
   build-push-ansible:
@@ -51,12 +51,10 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: sbom.spdx
-      
-      - uses: anchore/sbom-action/publish-sbom@v0
-        with:
-          sbom-artifact-match: ".*\\.spdx$"
-
+          artifact-name: ${{ env.IMAGE }}-${{ env.TAG }}-sbom.spdx
+          upload-artifact: true
+          upload-release-assets: true
+  
       - name: sign container image
         run: |
           cosign sign  ${{ env.REGISTRY }}/${{ env.IMAGE }}@${{ steps.docker_build.outputs.digest}} --yes
