@@ -57,11 +57,11 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          sbom: true
+          # sbom: true
           provanance: mode=max
-          # attests: |
-          #   type=sbom
-          #   generator=image
+          attests: |
+            type: sbom
+            generator: image
 
       # - name: generate SBOM for the image
       #   uses: anchore/sbom-action@v0
