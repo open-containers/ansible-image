@@ -25,13 +25,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
 
-      - name: setup Go
-        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5
-        with:
-          go-version: "1.22"
-
-      - name: Install Genval
-        run: go install github.com/intelops/genval@main
+      # - name: setup Go
+      #   uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5
+      #   with:
+      #     go-version: "1.22"
+      #
+      # - name: Install Genval
+      #   run: go install github.com/intelops/genval@main
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.2.0
@@ -58,10 +58,10 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
           sbom: true
-          provanance: true
+          provanance: mode=max
           attests: |
-            type: sbom
-            generator: image
+            sbom=true 
+            generator=image
 
       # - name: generate SBOM for the image
       #   uses: anchore/sbom-action@v0
