@@ -10,5 +10,5 @@ docker buildx imagetools inspect ghcr.io/santoshkal/ansible:v1.0.0 --format '{{ 
 To view the provanance of the built image:
 
 ```
-docker buildx imagetools inspect ghcr.io/santoshkal/ansible:v1.0.0 --format '{ json .Provenance.SLSA }}'
+docker buildx imagetools inspect ghcr.io/santoshkal/ansible:v1.0.0 --format '{{ json .Provenance.SLSA }}'
 ```
