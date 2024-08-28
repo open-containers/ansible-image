@@ -57,25 +57,30 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+          sbom: true
+          provanance: true
+          attests: |
+            type: sbom
+            generator: image
 
-      - name: generate SBOM for the image
-        uses: anchore/sbom-action@v0
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ansible-sbom.spdx.json
-
-      - name: Move SBOM to tmp
-        run: |
-          SBOM_DIR=/tmp/sbom
-          mkdir -p $SBOM_DIR
-          mv /tmp/sbom-action-*/ansible-sbom.spdx.json $SBOM_DIR/
-          echo "SBOM_DIR=$SBOM_DIR" >> $GITHUB_ENV
-
-      - name: Push SBOM as OCI artifact to GHCR
-        run: |
-          genval artifact push --reqinput ${{ env.SBOM_DIR }} \
-          --dest oci://${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ env.TAG }}.sbom \
-          --annotations="authors=intelops inc."
+      # - name: generate SBOM for the image
+      #   uses: anchore/sbom-action@v0
+      #   with:
+      #     image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+      #     artifact-name: ansible-sbom.spdx.json
+      #
+      # - name: Move SBOM to tmp
+      #   run: |
+      #     SBOM_DIR=/tmp/sbom
+      #     mkdir -p $SBOM_DIR
+      #     mv /tmp/sbom-action-*/ansible-sbom.spdx.json $SBOM_DIR/
+      #     echo "SBOM_DIR=$SBOM_DIR" >> $GITHUB_ENV
+      #
+      # - name: Push SBOM as OCI artifact to GHCR
+      #   run: |
+      #     genval artifact push --reqinput ${{ env.SBOM_DIR }} \
+      #     --dest oci://${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ env.TAG }}.sbom \
+      #     --annotations="authors=intelops inc."
 
       - name: sign container image
         run: |
