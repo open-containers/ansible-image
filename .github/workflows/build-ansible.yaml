@@ -60,7 +60,7 @@ jobs:
           sbom: true
           provanance: mode=max
           attests: |
-            sbom=true 
+            type=sbom 
             generator=image
 
       # - name: generate SBOM for the image
