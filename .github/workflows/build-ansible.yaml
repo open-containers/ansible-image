@@ -60,8 +60,8 @@ jobs:
           # sbom: true
           provanance: mode=max
           attests: |
-            type: sbom
-            generator: image
+            type=sbom
+            generator=image
 
       # - name: generate SBOM for the image
       #   uses: anchore/sbom-action@v0
