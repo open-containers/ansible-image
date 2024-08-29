@@ -1,0 +1,1 @@
+PROVENANCE=docker buildx imagetools inspect ghcr.io/santoshkal/ansible:v1.0.0   --format '{{ json .Provenance.SLSA }}'
