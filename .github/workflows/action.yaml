@@ -50,3 +50,10 @@ jobs:
             ```
           message: "Add ansible provenance file"
           overwrite: true
+      - name: Commit & Push
+        uses: Andro999b/push@c77535fe7a94645f7ceca83e48e6cc977620710e # v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.run_number }}"
+          force: true
+          message: "Overwritten by GitHub Actions - ${{ github.run_number }}"
