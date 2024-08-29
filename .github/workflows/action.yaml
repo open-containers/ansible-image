@@ -37,14 +37,17 @@ jobs:
       - name: Run Docker Buildx imagetools inspect
         id: inspect
         run: |
-          PROVENANCE=$(docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.ORG }}/ansible:v1.0.0 \
-          --format '{{ json .Provenance.SLSA }}')
-          printf "PROVENANCE=%s\n" "$PROVENANCE" >> $GITHUB_ENV
+          docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.ORG }}/ansible:v1.0.0 \
+            --format '{{ json .Provenance.SLSA }}' > ./ansible-provenance.json
+
       - name: Write Provenance File to Repository
         uses: DamianReeves/write-file-action@6929a9a6d1807689191dcc8bbe62b54d70a32b42 # v1.3
         with:
           path: "./ansible-provenance.json"
-          contents: ${{ env.PROVENANCE }}
+          contents: |
+            ```json
+            $(cat ./ansible-provenance.json)
+            ```
           message: "Add ansible provenance file"
           overwrite: true
       - name: Commit & Push
