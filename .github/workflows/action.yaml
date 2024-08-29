@@ -38,4 +38,11 @@ jobs:
           #
           # - name: Publish SLSA provenance report
           #
-          # - name: Publish CVE and recomendations
+
+      - name: Write Provenance File to Repository
+        uses: DamianReeves/write-file-action@v1
+        with:
+          path: "./ansible-provenance.json"
+          contents: ${{ steps.run-docker-buildx.outputs.result }}
+          message: "Add ansible provenance file"
+          overwrite: true
