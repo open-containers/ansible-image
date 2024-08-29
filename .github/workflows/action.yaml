@@ -57,3 +57,11 @@ jobs:
           branch: ${{ github.run_number }}"
           force: true
           message: "Overwritten by GitHub Actions - ${{ github.run_number }}"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.run_number }}"
+          title: "Ansible provenance from ${{github.run_number}}"
+          body: "This pull request updates the ansible-provenance"
+          base: main
