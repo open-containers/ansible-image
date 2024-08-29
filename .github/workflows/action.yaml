@@ -36,31 +36,28 @@ jobs:
           echo "PROVENANCE=docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.ORG }}/ansible:v1.0.0 \
             --format '{{ json .Provenance.SLSA }}'" >> GITHUB_ENV
 
-      - name: Check Provenance content
-        run: echo ${{ env.PROVENANCE }}
-
-      # - name: Write Provenance File to Repository
-      #   uses: DamianReeves/write-file-action@6929a9a6d1807689191dcc8bbe62b54d70a32b42 # v1.3
-      #   with:
-      #     path: "./ansible-provenance.json"
-      #     contents: |
-      #       ```
-      #       ./ansible-provenance.json
-      #       ```
-      #     message: "Add ansible provenance file"
-      #     overwrite: true
-      # - name: Commit & Push
-      #   uses: Andro999b/push@c77535fe7a94645f7ceca83e48e6cc977620710e # v1.3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: ${{ github.run_number }}"
-      #     force: true
-      #     message: "Overwritten by GitHub Actions - ${{ github.run_number }}"
-      # - name: Create Pull Request
-      #   uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: ${{ github.run_number }}"
-      #     title: "Ansible provenance from ${{github.run_number}}"
-      #     body: "This pull request updates the ansible-provenance"
-      #     base: main
+      - name: Write Provenance File to Repository
+        uses: DamianReeves/write-file-action@6929a9a6d1807689191dcc8bbe62b54d70a32b42 # v1.3
+        with:
+          path: "./ansible-provenance.json"
+          contents: |
+            ```json
+            ${{ env.PROVENANCE }}
+            ```
+          message: "Add ansible provenance file"
+          overwrite: true
+      - name: Commit & Push
+        uses: Andro999b/push@c77535fe7a94645f7ceca83e48e6cc977620710e # v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.run_number }}"
+          force: true
+          message: "Overwritten by GitHub Actions - ${{ github.run_number }}"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.run_number }}"
+          title: "Ansible provenance from ${{github.run_number}}"
+          body: "This pull request updates the ansible-provenance"
+          base: main
