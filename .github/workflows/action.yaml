@@ -37,7 +37,7 @@ jobs:
             --format '{{ json .Provenance.SLSA }}'
 
       - name: Check Provenance content
-        run: "echo ${{ step.inspect.outputs }}"
+        run: "echo ${{ steps.inspect.outputs }}"
 
       # - name: Write Provenance File to Repository
       #   uses: DamianReeves/write-file-action@6929a9a6d1807689191dcc8bbe62b54d70a32b42 # v1.3
