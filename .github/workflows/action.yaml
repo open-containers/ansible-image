@@ -31,6 +31,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: Run Docker Buildx imagetools inspect
+        id: inspect
         run: |
           docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.ORG }}/ansible:v1.0.0 \
             --format '{{ json .Provenance.SLSA }}' > ./ansible-provenance.json
@@ -43,6 +44,6 @@ jobs:
         uses: DamianReeves/write-file-action@6929a9a6d1807689191dcc8bbe62b54d70a32b42 # v1.3
         with:
           path: "./ansible-provenance.json"
-          contents: ${{ steps.run-docker-buildx.outputs.result }}
+          contents: ${{ steps.inspect.outputs.result }}
           message: "Add ansible provenance file"
           overwrite: true
