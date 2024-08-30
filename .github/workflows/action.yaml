@@ -49,18 +49,12 @@ jobs:
           docker buildx imagetools inspect ${{env.REGISTRY}}/${{ env.ORG }}/${{ matrix.image.name }}:v1.0.0 \
             --format '{{ json .SBOM.SPDX }}' > ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-sbom.jaon
 
-      - name: Docker Scout
-        id: scout
-        uses: docker/scout-action@v1
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
         with:
-          command: cves
-          image: ${{env.REGISTRY}}/${{ env.ORG }}/${{ matrix.image.name }}:v1.0.0
-          to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMPARE_TAG }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Collect CVES
-        run: |
-          echo "${{ steps.scout.outputs.cves }} > ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-CVES.md "
+          image-ref: "docker.io/my-organization/my-app:${{ github.sha }}"
+          format: "json"
+          output: ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-cves.jaon
 
       - name: Commit Provenance File to Repository
         run: |
