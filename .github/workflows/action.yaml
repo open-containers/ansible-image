@@ -46,7 +46,7 @@ jobs:
 
       - name: Collect SBOM
         run: |
-          docker buildx build imagetools inspect ${{env.REGISTRY}}/${{ env.ORG }}/${{ matrix.image.name }}:v1.0.0 \
+          docker buildx imagetools inspect ${{env.REGISTRY}}/${{ env.ORG }}/${{ matrix.image.name }}:v1.0.0 \
             --format '{{ json .SBOM.SPDX }}' > ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-sbom.jaon
 
       - name: Docker Scout
