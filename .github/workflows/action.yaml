@@ -47,14 +47,14 @@ jobs:
       - name: Collect SBOM
         run: |
           docker buildx imagetools inspect ${{env.REGISTRY}}/${{ env.ORG }}/${{ matrix.image.name }}:v1.0.0 \
-            --format '{{ json .SBOM.SPDX }}' > ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-sbom.jaon
+            --format '{{ json .SBOM.SPDX }}' > ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-sbom.json
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
           image-ref: "${{env.REGISTRY}}/${{ env.ORG }}/${{ matrix.image.name }}:v1.0.0"
           format: "json"
-          output: ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-cves.jaon
+          output: ./${{ matrix.image.name }}-attestations/${{ matrix.image.name }}-cves.json
 
       - name: Commit Provenance File to Repository
         run: |
