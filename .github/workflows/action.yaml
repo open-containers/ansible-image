@@ -1,12 +1,9 @@
 name: image-insights
 
 on:
-  # The schedule will trigger in the UTC timezone
-  #schedule:
-  #- cron: "0 19 * * *"
-  push:
-    branches:
-      - main
+  #The schedule will trigger in the UTC timezone
+  schedule:
+    - cron: "0 9 * * *"
 
 jobs:
   publish-insights:
