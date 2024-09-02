@@ -1,1 +1,3 @@
 genval
+*.go
+go.*
