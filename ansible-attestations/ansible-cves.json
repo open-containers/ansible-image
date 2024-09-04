@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2024-09-03T09:11:26.628672908Z",
+  "CreatedAt": "2024-09-04T09:11:31.324953302Z",
   "ArtifactName": "ghcr.io/santoshkal/ansible:v1.0.0",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -101,7 +101,134 @@
     {
       "Target": "ghcr.io/santoshkal/ansible:v1.0.0 (wolfi 20230201)",
       "Class": "os-pkgs",
-      "Type": "wolfi"
+      "Type": "wolfi",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-6119",
+          "PkgID": "libcrypto3@3.3.1-r5",
+          "PkgName": "libcrypto3",
+          "PkgIdentifier": {
+            "PURL": "pkg:wolfi/libcrypto3@3.3.1-r5?arch=x86_64",
+            "UID": "f287ffd54b596911"
+          },
+          "InstalledVersion": "3.3.1-r5",
+          "FixedVersion": "3.3.2-r0",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:77f89bfcbde8544a7fd809d7d59f0f20356e49f215a78441d10bad84a434ee20",
+            "DiffID": "sha256:a9b49327acb3fec2c512b81b21ac389edc924afd499defbc5e29695cbbedff41"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-6119",
+          "DataSource": {
+            "ID": "wolfi",
+            "Name": "Wolfi Secdb",
+            "URL": "https://packages.wolfi.dev/os/security.json"
+          },
+          "Title": "Issue summary: Applications performing certificate name checks (e.g.,  ...",
+          "Description": "Issue summary: Applications performing certificate name checks (e.g., TLS\nclients checking server certificates) may attempt to read an invalid memory\naddress resulting in abnormal termination of the application process.\n\nImpact summary: Abnormal termination of an application can a cause a denial of\nservice.\n\nApplications performing certificate name checks (e.g., TLS clients checking\nserver certificates) may attempt to read an invalid memory address when\ncomparing the expected name with an `otherName` subject alternative name of an\nX.509 certificate. This may result in an exception that terminates the\napplication program.\n\nNote that basic certificate chain validation (signatures, dates, ...) is not\naffected, the denial of service can occur only when the application also\nspecifies an expected DNS name, Email address or IP address.\n\nTLS servers rarely solicit client certificates, and even when they do, they\ngenerally don't perform a name check against a reference identifier (expected\nidentity), but rather extract the presented identity after checking the\ncertificate chain.  So TLS servers are generally not affected and the severity\nof the issue is Moderate.\n\nThe FIPS modules in 3.3, 3.2, 3.1 and 3.0 are not affected by this issue.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-843"
+          ],
+          "VendorSeverity": {
+            "ubuntu": 2
+          },
+          "References": [
+            "https://github.com/openssl/openssl/commit/05f360d9e849a1b277db628f1f13083a7f8dd04f",
+            "https://github.com/openssl/openssl/commit/06d1dc3fa96a2ba5a3e22735a033012aadc9f0d6",
+            "https://github.com/openssl/openssl/commit/621f3729831b05ee828a3203eddb621d014ff2b2",
+            "https://github.com/openssl/openssl/commit/7dfcee2cd2a63b2c64b9b4b0850be64cb695b0a0",
+            "https://openssl-library.org/news/secadv/20240903.txt",
+            "https://ubuntu.com/security/notices/USN-6986-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-6119"
+          ],
+          "PublishedDate": "2024-09-03T16:15:07.177Z",
+          "LastModifiedDate": "2024-09-03T21:35:12.987Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-6119",
+          "PkgID": "libssl3@3.3.1-r5",
+          "PkgName": "libssl3",
+          "PkgIdentifier": {
+            "PURL": "pkg:wolfi/libssl3@3.3.1-r5?arch=x86_64",
+            "UID": "546d3baa4f3a5a0d"
+          },
+          "InstalledVersion": "3.3.1-r5",
+          "FixedVersion": "3.3.2-r0",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:77f89bfcbde8544a7fd809d7d59f0f20356e49f215a78441d10bad84a434ee20",
+            "DiffID": "sha256:a9b49327acb3fec2c512b81b21ac389edc924afd499defbc5e29695cbbedff41"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-6119",
+          "DataSource": {
+            "ID": "wolfi",
+            "Name": "Wolfi Secdb",
+            "URL": "https://packages.wolfi.dev/os/security.json"
+          },
+          "Title": "Issue summary: Applications performing certificate name checks (e.g.,  ...",
+          "Description": "Issue summary: Applications performing certificate name checks (e.g., TLS\nclients checking server certificates) may attempt to read an invalid memory\naddress resulting in abnormal termination of the application process.\n\nImpact summary: Abnormal termination of an application can a cause a denial of\nservice.\n\nApplications performing certificate name checks (e.g., TLS clients checking\nserver certificates) may attempt to read an invalid memory address when\ncomparing the expected name with an `otherName` subject alternative name of an\nX.509 certificate. This may result in an exception that terminates the\napplication program.\n\nNote that basic certificate chain validation (signatures, dates, ...) is not\naffected, the denial of service can occur only when the application also\nspecifies an expected DNS name, Email address or IP address.\n\nTLS servers rarely solicit client certificates, and even when they do, they\ngenerally don't perform a name check against a reference identifier (expected\nidentity), but rather extract the presented identity after checking the\ncertificate chain.  So TLS servers are generally not affected and the severity\nof the issue is Moderate.\n\nThe FIPS modules in 3.3, 3.2, 3.1 and 3.0 are not affected by this issue.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-843"
+          ],
+          "VendorSeverity": {
+            "ubuntu": 2
+          },
+          "References": [
+            "https://github.com/openssl/openssl/commit/05f360d9e849a1b277db628f1f13083a7f8dd04f",
+            "https://github.com/openssl/openssl/commit/06d1dc3fa96a2ba5a3e22735a033012aadc9f0d6",
+            "https://github.com/openssl/openssl/commit/621f3729831b05ee828a3203eddb621d014ff2b2",
+            "https://github.com/openssl/openssl/commit/7dfcee2cd2a63b2c64b9b4b0850be64cb695b0a0",
+            "https://openssl-library.org/news/secadv/20240903.txt",
+            "https://ubuntu.com/security/notices/USN-6986-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-6119"
+          ],
+          "PublishedDate": "2024-09-03T16:15:07.177Z",
+          "LastModifiedDate": "2024-09-03T21:35:12.987Z"
+        }
+      ]
+    },
+    {
+      "Target": "Python",
+      "Class": "lang-pkgs",
+      "Type": "python-pkg",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "GHSA-h4gh-qq45-vh27",
+          "PkgName": "cryptography",
+          "PkgPath": "home/ansible/.local/lib/python3.12/site-packages/cryptography-43.0.0.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/cryptography@43.0.0",
+            "UID": "1dcfd6a30311da9b"
+          },
+          "InstalledVersion": "43.0.0",
+          "FixedVersion": "43.0.1",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:9d5867e81b96567d16999c94e0879b57251fb575c9748965b76298a84d187576",
+            "DiffID": "sha256:ab772d00c9d3c08c49f0399087517004cc4945df68f69d1f39f25847809d9674"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://github.com/advisories/GHSA-h4gh-qq45-vh27",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "pyca/cryptography has a vulnerable OpenSSL included in cryptography wheels",
+          "Description": "pyca/cryptography's wheels include a statically linked copy of OpenSSL. The versions of OpenSSL included in cryptography 37.0.0-43.0.0 are vulnerable to a security issue. More details about the vulnerability itself can be found in https://openssl-library.org/news/secadv/20240903.txt.\n\nIf you are building cryptography source (\"sdist\") then you are responsible for upgrading your copy of OpenSSL. Only users installing from wheels built by the cryptography project (i.e., those distributed on PyPI) need to update their cryptography versions.\n",
+          "Severity": "MEDIUM",
+          "VendorSeverity": {
+            "ghsa": 2
+          },
+          "References": [
+            "https://github.com/pyca/cryptography",
+            "https://github.com/pyca/cryptography/security/advisories/GHSA-h4gh-qq45-vh27",
+            "https://openssl-library.org/news/secadv/20240903.txt"
+          ]
+        }
+      ]
     },
     {
       "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/community/aws/plugins/modules/sts_session_token.py",
@@ -232,7 +359,7 @@
       ]
     },
     {
-      "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/google/cloud/plugins/modules/gcp_compute_region_target_https_proxy.py",
+      "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/google/cloud/plugins/modules/gcp_compute_target_ssl_proxy.py",
       "Class": "secret",
       "Secrets": [
         {
@@ -240,12 +367,12 @@
           "Category": "AsymmetricPrivateKey",
           "Severity": "HIGH",
           "Title": "Asymmetric Private Key",
-          "StartLine": 223,
-          "EndLine": 223,
+          "StartLine": 226,
+          "EndLine": 226,
           "Code": {
             "Lines": [
               {
-                "Number": 221,
+                "Number": 224,
                 "Content": "      -----END CERTIFICATE-----",
                 "IsCause": false,
                 "Annotation": "",
@@ -255,7 +382,7 @@
                 "LastCause": false
               },
               {
-                "Number": 222,
+                "Number": 225,
                 "Content": "    private_key: |-",
                 "IsCause": false,
                 "Annotation": "",
@@ -265,7 +392,7 @@
                 "LastCause": false
               },
               {
-                "Number": 223,
+                "Number": 226,
                 "Content": "      -----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE KEY-----",
                 "IsCause": true,
                 "Annotation": "",
@@ -275,7 +402,7 @@
                 "LastCause": true
               },
               {
-                "Number": 224,
+                "Number": 227,
                 "Content": "    project: \"{{ gcp_project }}\"",
                 "IsCause": false,
                 "Annotation": "",
@@ -424,7 +551,7 @@
       ]
     },
     {
-      "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/google/cloud/plugins/modules/gcp_compute_target_ssl_proxy.py",
+      "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/netapp/storagegrid/plugins/modules/na_sg_grid_certificate.py",
       "Class": "secret",
       "Secrets": [
         {
@@ -432,53 +559,52 @@
           "Category": "AsymmetricPrivateKey",
           "Severity": "HIGH",
           "Title": "Asymmetric Private Key",
-          "StartLine": 226,
-          "EndLine": 226,
+          "StartLine": 68,
+          "EndLine": 68,
           "Code": {
             "Lines": [
               {
-                "Number": 224,
-                "Content": "      -----END CERTIFICATE-----",
+                "Number": 66,
+                "Content": "        -----END CERTIFICATE-----",
                 "IsCause": false,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "      -----END CERTIFICATE-----",
+                "Highlighted": "        -----END CERTIFICATE-----",
                 "FirstCause": false,
                 "LastCause": false
               },
               {
-                "Number": 225,
-                "Content": "    private_key: |-",
+                "Number": 67,
+                "Content": "      private_key: |",
                 "IsCause": false,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "    private_key: |-",
+                "Highlighted": "      private_key: |",
                 "FirstCause": false,
                 "LastCause": false
               },
               {
-                "Number": 226,
-                "Content": "      -----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE KEY-----",
+                "Number": 68,
+                "Content": "        -----BEGIN PRIVATE KEY-----*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END PRIVATE KEY-----",
                 "IsCause": true,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "      -----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE KEY-----",
+                "Highlighted": "        -----BEGIN PRIVATE KEY-----*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END PRIVATE KEY-----",
                 "FirstCause": true,
                 "LastCause": true
               },
               {
-                "Number": 227,
-                "Content": "    project: \"{{ gcp_project }}\"",
+                "Number": 69,
+                "Content": "",
                 "IsCause": false,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "    project: \"{{ gcp_project }}\"",
                 "FirstCause": false,
                 "LastCause": false
               }
             ]
           },
-          "Match": "-----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE ",
+          "Match": "   -----BEGIN PRIVATE KEY-----*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END PRIVATE KEY",
           "Layer": {
             "Digest": "sha256:9d5867e81b96567d16999c94e0879b57251fb575c9748965b76298a84d187576",
             "DiffID": "sha256:ab772d00c9d3c08c49f0399087517004cc4945df68f69d1f39f25847809d9674",
@@ -616,7 +742,7 @@
       ]
     },
     {
-      "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/netapp/storagegrid/plugins/modules/na_sg_grid_certificate.py",
+      "Target": "/home/ansible/.local/lib/python3.12/site-packages/ansible_collections/google/cloud/plugins/modules/gcp_compute_region_target_https_proxy.py",
       "Class": "secret",
       "Secrets": [
         {
@@ -624,52 +750,53 @@
           "Category": "AsymmetricPrivateKey",
           "Severity": "HIGH",
           "Title": "Asymmetric Private Key",
-          "StartLine": 68,
-          "EndLine": 68,
+          "StartLine": 223,
+          "EndLine": 223,
           "Code": {
             "Lines": [
               {
-                "Number": 66,
-                "Content": "        -----END CERTIFICATE-----",
+                "Number": 221,
+                "Content": "      -----END CERTIFICATE-----",
                 "IsCause": false,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "        -----END CERTIFICATE-----",
+                "Highlighted": "      -----END CERTIFICATE-----",
                 "FirstCause": false,
                 "LastCause": false
               },
               {
-                "Number": 67,
-                "Content": "      private_key: |",
+                "Number": 222,
+                "Content": "    private_key: |-",
                 "IsCause": false,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "      private_key: |",
+                "Highlighted": "    private_key: |-",
                 "FirstCause": false,
                 "LastCause": false
               },
               {
-                "Number": 68,
-                "Content": "        -----BEGIN PRIVATE KEY-----*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END PRIVATE KEY-----",
+                "Number": 223,
+                "Content": "      -----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE KEY-----",
                 "IsCause": true,
                 "Annotation": "",
                 "Truncated": false,
-                "Highlighted": "        -----BEGIN PRIVATE KEY-----*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END PRIVATE KEY-----",
+                "Highlighted": "      -----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE KEY-----",
                 "FirstCause": true,
                 "LastCause": true
               },
               {
-                "Number": 69,
-                "Content": "",
+                "Number": 224,
+                "Content": "    project: \"{{ gcp_project }}\"",
                 "IsCause": false,
                 "Annotation": "",
                 "Truncated": false,
+                "Highlighted": "    project: \"{{ gcp_project }}\"",
                 "FirstCause": false,
                 "LastCause": false
               }
             ]
           },
-          "Match": "   -----BEGIN PRIVATE KEY-----*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END PRIVATE KEY",
+          "Match": "-----BEGIN EC PRIVATE KEY-----************************************************************************************************************************************************************************************************-----END EC PRIVATE ",
           "Layer": {
             "Digest": "sha256:9d5867e81b96567d16999c94e0879b57251fb575c9748965b76298a84d187576",
             "DiffID": "sha256:ab772d00c9d3c08c49f0399087517004cc4945df68f69d1f39f25847809d9674",
