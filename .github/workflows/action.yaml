@@ -9,7 +9,8 @@ jobs:
   build-push-ansible:
     env:
       REGISTRY: ghcr.io
-      IMAGE: santoshkal/ansible
+      ORG:: open-containers
+      IMAGE: ansible
       TAG: "v1.0.0"
     runs-on: ubuntu-latest
     permissions:
@@ -45,16 +46,16 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.ORG }}/${{ env.IMAGE }}:${{ env.TAG }}
 
       - name: generate SBOM for the image
         uses: anchore/sbom-action@v0
         with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+          image: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ env.IMAGE }}:${{ env.TAG }}
           artifact-name: ${{ steps.docker_build.outputs.digest}}-sbom.spdx
           upload-artifact: true
           upload-release-assets: true
-  
+
       - name: sign container image
         run: |
-          cosign sign  ${{ env.REGISTRY }}/${{ env.IMAGE }}@${{ steps.docker_build.outputs.digest}} --yes
+          cosign sign  ${{ env.REGISTRY }}/${{ env.ORG }}/${{ env.IMAGE }}@${{ steps.docker_build.outputs.digest}} --yes
