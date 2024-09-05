@@ -9,7 +9,7 @@ jobs:
   build-push-ansible:
     env:
       REGISTRY: ghcr.io
-      ORG:: open-containers
+      ORG: open-containers
       IMAGE: ansible
       TAG: "v1.0.0"
     runs-on: ubuntu-latest
