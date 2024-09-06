@@ -44,17 +44,11 @@ jobs:
         uses: docker/build-push-action@v6.7.0
         with:
           context: .
+          sbom: true
+          provenance: mode=max
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.ORG }}/${{ env.IMAGE }}:${{ env.TAG }}
-
-      - name: generate SBOM for the image
-        uses: anchore/sbom-action@v0
-        with:
-          image: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ env.IMAGE }}:${{ env.TAG }}
-          artifact-name: ${{ steps.docker_build.outputs.digest}}-sbom.spdx
-          upload-artifact: true
-          upload-release-assets: true
 
       - name: sign container image
         run: |
